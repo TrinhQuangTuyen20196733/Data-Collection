@@ -33,7 +33,15 @@ public class GlobalExceptionHandler {
         return errorMsg;
 
     }
-    
+
+    @ExceptionHandler({BusinessLogicException.class})
+    public ResponseEntity<ErrorResponse> handleBusinessLogicException(BusinessLogicException ex) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setCode(4000);
+        errorResponse.setDescription(ex.getMessage());
+        return ResponseEntity.status(4000).body(errorResponse);
+
+    }
     @ExceptionHandler({Exception.class})
     public ResponseEntity<ErrorResponse> Exception(Exception e) {
         ErrorResponse errorResponse = new ErrorResponse();
